@@ -1,0 +1,48 @@
+{% extends "capstone/layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="../../static/capstone/index.css">
+{% endblock %}
+
+{% block script1 %}
+{% endblock  %}
+
+{% block body %}
+  <nav>
+      <ul id="nav">
+        <li class="normal">
+            <a href="#">All Parkings <i class="fas fa-car"></i> </a>
+          </li>
+          <li class="normal">|</li>
+          <li class="normal">
+            <a href="#">Historic <i class="fas fa-clock"></i> </a>
+          </li>
+          {% if logged %}
+          <li id="li_profile">
+            <a href="#">My profile <i class="fas fa-user"></i> </a>
+          </li>
+          {% else %}
+          <li id="li_profile">
+            <a href="{% url 'login' %}">login <i class="fas fa-user"></i> </a>
+          </li>
+          {% endif %}
+      </ul>
+  </nav>
+
+  <img src="../../static/capstone/img/parking2.jpg" id="idx-img">
+  <div id="upon-img">
+    <h1>Find Parking</h1>
+    <h5>When you don't know where to park</h5>
+  </div>
+  <img src="../../static/capstone/img/busy_city.jpg" id="idx-img">
+  <div id="upon-img2">
+    <h1>In a busy city</h1>
+    <h5>You can count on us</h5>
+  </div>
+  <img src="../../static/capstone/img/trafic-light.jpg" id="idx-img">
+  <div id="upon-img3">
+    <h1>Find the fastest parking</h1>
+    <h5>Don't lose your time</h5> 
+
+   
+{% endblock %}

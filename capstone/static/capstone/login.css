@@ -1,0 +1,129 @@
+
+body {
+	background: #EFEFBB;  
+	background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB); 
+	background: linear-gradient(to right, #D4D3DD, #EFEFBB); 
+	margin:0px;
+	height: 0px;
+	overflow: hidden;
+}
+
+#container {
+	margin-top: 5vw;
+	box-shadow: 0 0 1rem black ; 
+	max-height: 536px;
+}
+
+#container #login-h2{
+	margin-top: 6.4rem;
+	margin-left: 20px;
+	font-family: Roboto;
+	font-weight: 900;
+	font-size: 35px;
+	color:#424242;
+	letter-spacing: 0.09em;
+}
+
+#container p#login-p {
+	font-family: Roboto;
+	color:#424242;
+	margin-top: 20px;
+}
+
+
+#page-form {
+	background: white;
+	margin-right: 0;
+	width: 100%;
+	height: 536px; 
+}
+
+#page-img {
+    height: 536px;
+}
+
+#parking_img {
+    width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+p>a { 
+	color: grey;
+	text-transform: italic;
+}
+
+p>a:hover {
+	color: grey;
+	text-transform: italic;
+}
+
+.user-icon1 {
+	position: absolute;
+	top: 15px;
+	right: 150px;
+	z-index: 10;
+	border: none;
+	outline: none;
+	background:transparent;
+}
+
+.user-icon2 {
+	position: absolute;
+	top: 82px;
+	right: 150px;
+	z-index: 10;
+	border: none;
+	outline: none;
+	background:transparent;
+}
+
+.username {
+	position: relative;
+}
+
+.username input {
+	height: 50px;
+	width: 70%;
+	border: none;
+	border-bottom: 1px solid #ccc;
+}
+
+#login_button {
+	border-radius: 80px;
+	 width:70%;
+	 height: 50px;
+	 transition: all .3s;
+}
+
+#login_button:hover {
+	font-size: 130%;
+}
+
+#upon-img {
+	color:white;
+	width:100%;
+	position: absolute;
+	top: 20%; 
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content:center;
+}
+
+#upon-img h1 {
+	font-family: 'Rubik 80s Fade', cursive;
+	font-size: 48px;
+	text-decoration: underline;
+	box-shadow: 1rem .6rem .8rem black;
+	letter-spacing: -2px;
+	padding:0 .4rem ;
+	margin-bottom: 1rem;
+}
+
+#upon-img h5 {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 300;
+}
+
+
