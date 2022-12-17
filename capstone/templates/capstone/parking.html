@@ -15,7 +15,7 @@
         </li>
         <li class="normal">|</li>
         <li class="normal">
-            <a href="#mainpg" class="ss">All Parkings <i class="fas fa-car"></i> </a>
+            <a href="{% url 'allParkings' %}" class="ss">All Parkings <i class="fas fa-car"></i> </a>
           </li>
           {% if logged %}
           <li id="li_profile">
@@ -28,5 +28,42 @@
           {% endif %}
       </ul>
   </nav>
+
+  <div id="title"><h1>{{parking.title}}</h1></div>
+  <section id="location">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.2339235689556!2d-34.847163585722406!3d-7.098863871569232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7acdd6df40f5401%3A0xbdb630ecc698116e!2sManaira%20Shopping!5e0!3m2!1spt-BR!2sbr!4v1671294737524!5m2!1spt-BR!2sbr" style="border:0; width: 98vw; height: 75vh;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section>
+  <hr>
+  <section id="slots">
+    <div class="row">
+      <div class="col-6 text-center">
+        <h3>Park</h3>
+        <form id="park-form" action="">
+          {% csrf_token %}
+          <select name="category" class="form-control">
+            <option value="car">Car</option>
+            <option value="motorcycle">Motorcycle</option>
+          </select>
+          <input type="text" name="placa" class="form-control" placeholder="License Plate">
+          <select name="slot" class="form-control">
+            {% for slot in slots %}
+            <option value="{{ forloop.counter }}">{{forloop.counter}}</option>
+            {% endfor %}
+          </select>
+          <button class="btn btn-warning form-control">Park</button>
+        </form>
+      </div>
+      <div class="col-6" id="slots-div">
+        <h3>Slots</h3>
+        <div id="slotsbox" class="slot">
+          {% for slot in slots %}
+          <span id="slot" class="slot">
+            <span id="forloop.counter">{{ forloop.counter }}</span>
+          </span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
     
 {% endblock %}

@@ -29,7 +29,17 @@ def allParkings(request):
     })
 
 def parking(request, parking_id):
-    return render(request, "capstone/parking.html")          
+    parking = Parking.objects.get(pk=parking_id)
+    slots_n = parking.slots
+    i = 0
+    slots = ''
+    while i < slots_n:
+        slots += 'x'
+        i +=1    
+    return render(request, "capstone/parking.html", {
+        "parking": parking,
+        "slots": slots
+    })          
 
 def filter(request):
     return render(request, "capstone/index.html")
