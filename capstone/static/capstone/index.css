@@ -1,3 +1,4 @@
+
 ul#nav {
     display: flex;
     flex-direction: row;
@@ -23,9 +24,10 @@ ul#nav li.normal {
    list-style: none;
    margin-left: auto;
    margin-right: 2rem;
-} 
+}
 
-ul li, ul li a  {
+
+ul#nav li, ul#nav li a  {
     color: white;
     font-size: 1.2rem;
     text-shadow: 0 0 4px black;
@@ -33,19 +35,28 @@ ul li, ul li a  {
     transition: font-size .3s; 
 }
 
+ul#nav li a.brand {
+	font-family: 'Rubik 80s Fade', cursive;
+	font-size: 22px;
+	letter-spacing: -2px;
+	padding:0 .4rem ;
+	margin-bottom: 1rem;
+	list-style:none;
+}
+
 i {
     margin-left: .1rem;
 }
 
-ul li:hover, ul li a:hover {
+ul#nav li:hover, ul li a:hover {
     color: white;
     text-decoration: none;
     font-size: 1.3rem;
 }
 
- #idx-img {
+ .idx-img {
     position: relative;
-    width: 100vw;
+    width: 100%;
     height:100vh;
 }
 
@@ -53,29 +64,7 @@ ul li:hover, ul li a:hover {
 	color:white;
 	width:100%;
 	position: absolute;
-	top: 20%; 
-	display:flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content:center;
-}
-
-#upon-img2 {
-	color:white;
-	width:100%;
-	position: absolute;
-	top: 145%; 
-	display:flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content:center;
-}
-
-#upon-img3 {
-	color:white;
-	width:100%;
-	position: absolute;
-	top: 250%; 
+	top: 40%; 
 	display:flex;
 	flex-direction: column;
 	align-items: center;
@@ -92,45 +81,299 @@ ul li:hover, ul li a:hover {
 	margin-bottom: 1rem;
 }
 
-#upon-img2 h1 {
-	font-family: 'Rubik 80s Fade', cursive;
-	font-size: 72px;
-	text-decoration: underline;
-	box-shadow: 1rem .6rem .8rem black;
-	letter-spacing: -2px;
-	padding:0 .4rem ;
-	margin-bottom: 1rem;
-}
-
-#upon-img3 h1 {
-	font-family: 'Rubik 80s Fade', cursive;
-	font-size: 72px;
-	text-decoration: underline;
-	box-shadow: 1rem .6rem .8rem black;
-	letter-spacing: -2px;
-	padding:0 .4rem ;
-	margin-bottom: 1rem;
-}
-
 #upon-img h5 {
 	font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     text-shadow: 0 0 4px white;
 }
 
-#upon-img2 h5 {
+#parallax {
+	margin-top: 3rem;
+}
+
+section.one, section.three, section.five {
+	width:100vw;
+	height: 100vh;
+	text-align: center;
+	padding: 40px 4%;
+	font-family: Roboto;
+	color: rgb(20,20,20);
+	background-position: bottom;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+} 
+
+section.two, section.four {
+	height: 40vh;
+	background: #0F2027;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+	text-align: center;
+	padding: 6% 4%;
+	color: white;
 	font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     text-shadow: 0 0 4px white;
 }
 
+section h1 {
+	margin-bottom: 20px;
+}
 
-#upon-img3 h5 {
-	font-family: 'Montserrat', sans-serif;
-    font-weight: 300; 
-    text-shadow: 0 0 4px white;
-} 
+section:nth-of-type(1) {
+	background-image: url("../capstone/img/parking2.jpg");
+	background-size: 100vw;
+	height: 100vh;
+}
+
+section:nth-of-type(3) {
+	background-image: url("../capstone/img/busy_city.jpg");
+	background-size: 100vw;
+	height: 100vh;
+
+}
+
+section:nth-of-type(5) {
+	background-image: url("../capstone/img/trafic-light.jpg");
+	background-size: 100vw;
+	height: 100vh;
+
+}
+
+#link-topo {
+    position: fixed;
+    right:3rem;
+    bottom: 3rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+	background: #ffb347;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #ffcc33, #ffb347);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #ffcc33, #ffb347); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    border-radius: .3rem;
+    box-shadow: 0 0.1rem 0.6rem #00000009;
+    transition: all .7s;
+    z-index:98;
+}
+
+#link-topo:hover {
+	bottom: 4rem;
+	list-style:none;
+	text-transform: none;
+	text-decoration: none;
+}
+
+#mainpg {
+	padding-top: 3rem;
+}
+
+#mainpg h1 {
+	color: black;
+	text-align: center;
+	text-shadow: 0 0 4px white;
+}
+#all-parkings ul li.parking {
+	list-style: none;
+	background: white;
+	box-shadow: 0 0 1.2rem black;
+	margin: 1.5rem  auto;
+	transform: translateX(-2rem);
+	width: 55%;
+	height: 9vw; 
+	border-radius: 20px;
+	position: relative;
+	transition: all .3s;
+}
+
+#all-parkings ul li.parking:hover {
+	width: 57.5%;
+
+}
+
+.parking .col-8 {
+	padding: 1rem;
+}
 
 
+li.parking img.parking-img {
+	width:100%;
+	height: 9vw; 
+	border-radius:20px 0 0 20px;
+}
+
+a#ali {
+	text-decoration: none;
+	text-transform: none;
+	color: black;
+}
+
+div#mainpg {
+	height: 100vh;
+	background: #EFEFBB;  
+	background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB); 
+    background: linear-gradient(to right, #D4D3DD, #EFEFBB); 
+}
+
+form#filter {
+	margin:1rem auto;
+	width: 70%;
+	text-align: center;
+	/* display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center; */
+}
+
+form#filter select {
+	margin-bottom: 0;
+}
+
+form#filter .btn {
+	margin-top: 0;
+}
+
+@media (max-width: 500px){
+#all-parkings ul li.parking {
+	width: 80%;
+	height: 40%;
+	border-radius: 3px;
+}
+
+#all-parkings ul li.parking:hover {
+	width: 90%;
+	height: 40%;
+	border-radius: 3px;
+}
 
 
+#all-parkings ul li.parking img {
+	height: 100%;
+	border-radius: 3px 0 0 3px;
+}
+
+#all-parkings ul li.parking h5 {
+	font-size: 17px;
+}
+#allparkings {
+	margin-bottom: 0;
+}
+
+}
+
+@media (min-width: 501px) and (max-width: 650px) {
+	#all-parkings ul li.parking {
+		width: 80%;
+		height: 40%;
+		border-radius: 3px;
+	}
+	
+	#all-parkings ul li.parking:hover {
+		width: 90%;
+		height: 40%;
+		border-radius: 3px;
+	}
+	
+	
+	#all-parkings ul li.parking img {
+		height: 100%;
+		border-radius: 3px 0 0 3px;
+	}
+	
+	#all-parkings ul li.parking h5 {
+		font-size: 17px;
+	}
+	#allparkings {
+		margin-bottom: 0;
+	}
+}
+
+@media (min-width: 651px) and (max-width: 850px) {
+	#all-parkings ul li.parking {
+		width: 70%;
+		height: 30%;
+		border-radius: 3px;
+	}
+	
+	#all-parkings ul li.parking:hover {
+		width: 75%;
+		height: 30%;
+		border-radius: 3px;
+	}
+	
+	
+	#all-parkings ul li.parking img {
+		height: 100%;
+		border-radius: 3px 0 0 3px;
+	}
+	
+	#all-parkings ul li.parking h5 {
+		font-size: 17px;
+	}
+
+	#allparkings {
+		margin-bottom: 0;
+	}
+}
+
+@media (min-width: 851px) and (max-width: 1000px) {
+	#all-parkings ul li.parking {
+		width: 60%;
+		height: 20%;
+		border-radius: 10px;
+	}
+	
+	#all-parkings ul li.parking:hover {
+		width: 63%;
+		height: 20%;
+		border-radius: 10px;
+	}
+	
+	
+	#all-parkings ul li.parking img {
+		height: 100%;
+		border-radius: 10px 0 0 10px;
+	}
+	
+	#all-parkings ul li.parking h5 {
+		font-size: 17px;
+	}
+
+	#allparkings {
+		margin-bottom: 0;
+	}
+}
+
+@media (min-width: 1001px) and (max-width: 1130px) {
+	#all-parkings ul li.parking {
+		width: 55%;
+		height: 15%;
+		border-radius: 10px;
+	}
+	
+	#all-parkings ul li.parking:hover {
+		width: 58%;
+		height: 15%;
+		border-radius: 10px;
+	}
+	
+	
+	#all-parkings ul li.parking img {
+		height: 100%;
+		border-radius: 10px 0 0 10px;
+	}
+	
+	#all-parkings ul li.parking h5 {
+		font-size: 17px;
+	}
+
+	#allparkings {
+		margin-bottom: 0;
+	}
+}

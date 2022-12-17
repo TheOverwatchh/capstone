@@ -1,7 +1,7 @@
 {% extends "capstone/layout.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="../../static/capstone/index.css">
+<link rel="stylesheet" href="../../static/capstone/profile.css">
 {% endblock %}
 
 {% block script1 %}
@@ -29,24 +29,19 @@
       </ul>
   </nav>
 
-<div id="parallax">
-    <section id="first" class="one idx-img"></section>
-    <div id="upon-img">
-      <h1>Find Parking</h1>
-      <h5>When you don't know where to park</h5>
-      {% if logged %}
-      <a href="#mainpg" class="btn btn-warning mt-2 ss">Get Started</a>
-      {% else %}
-      <div class="row">
-        <div class="col-6">
-      <a class="btn btn-warning mt-2 " href="{% url 'allParkings' %}">Get Started </a>
-        </div>
-        <div class="col-6">
-      <a class="btn btn-warning mt-2 " href="{% url 'login' %}">login <i class="fas fa-user"></i> </a>
-
-        </div>
-      </div>
-      {% endif %} 
+  <section id="username">
+    <h1>Profile username</h1>
+    <div class="row">
+      <div class="col-4"><h2>Logged X times</h2><i class="fas fa-user"></i></div>
+      <div class="col-4"><h2>Parked Y times</h2><i class="fas fa-car"></i></div>
     </div>
- </div>   
+  </section>
+
+  <section id="logout-btn-prof">
+    <form action="">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger form-control">Logout</button>
+    </form>
+  </section>
+    
 {% endblock %}

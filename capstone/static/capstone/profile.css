@@ -1,0 +1,105 @@
+body{
+    background: #EFEFBB;  
+	background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB); 
+    background: linear-gradient(to right, #D4D3DD, #EFEFBB);
+}
+
+ul#nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 3rem;
+    background: #EFEFBB;  
+	background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB); 
+    background: linear-gradient(to right, #D4D3DD, #EFEFBB); 
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+
+ul#nav li.normal {
+    margin: 0 .5rem;
+    list-style: none;
+}
+
+ li#li_profile {
+   list-style: none;
+   margin-left: auto;
+   margin-right: 2rem;
+}
+
+
+ul#nav li, ul#nav li a  {
+    color: white;
+    font-size: 1.2rem;
+    text-shadow: 0 0 4px black;
+    text-decoration:none;
+    transition: font-size .3s; 
+}
+
+ul#nav li a.brand {
+	font-family: 'Rubik 80s Fade', cursive;
+	font-size: 22px;
+	letter-spacing: -2px;
+	padding:0 .4rem ;
+	margin-bottom: 1rem;
+	list-style:none;
+}
+
+i {
+    margin-left: .1rem;
+}
+
+ul#nav li:hover, ul li a:hover {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3rem;
+}
+
+section#username {
+    margin-top: 5rem;
+    text-align: center;
+}
+
+section#username .row {
+    height: 14rem;
+    width: 100vw;
+    margin-top: 3rem;
+}
+
+section#username .row .col-4 {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    /* background: #F7ED11; */
+    background: #ffb347;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #DACD2F, #FFF000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #DACD2F, #FFF000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    width: 70%;
+    border-radius: 20px;
+    margin: 0 auto;
+    box-shadow: 0 0 .8rem black;
+}
+
+section#username .row .col-4 h2 {
+    font-size: 36px;
+    font-family: Roboto;
+}
+
+section#username .row .col-4 i {
+    font-size: 23px;
+}
+
+section#logout-btn-prof {
+    margin: 6rem auto;
+    width: 40%;
+}
+
+section#logout-btn-prof button[type="submit"] {
+    border-radius: 40px;
+}

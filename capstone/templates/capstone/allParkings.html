@@ -1,0 +1,85 @@
+{% extends "capstone/layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="../../static/capstone/index.css">
+{% endblock %}
+
+{% block script1 %}
+{% endblock  %}
+
+{% block body %}
+  <nav>
+      <ul id="nav">
+        <li class="normal">
+          <a href="{% url 'index' %}" class="brand ss">Find Parking</a>
+        </li>
+        <li class="normal">|</li>
+        <li class="normal">
+            <a href="" class="ss">All Parkings <i class="fas fa-car"></i> </a>
+          </li>
+          {% if logged %}
+          <li id="li_profile">
+            <a href="#">My profile <i class="fas fa-user"></i> </a>
+          </li>
+          {% else %}
+          <li id="li_profile">
+            <a href="{% url 'login' %}">login <i class="fas fa-user"></i> </a>
+          </li>
+          {% endif %}
+      </ul>
+  </nav>
+    <div id="mainpg" class="five">
+      <h1>All Parkings <i class="fas fa-car"></i> </h1>
+      <form id="filter" action="{% url 'filter' %}" method="post">
+
+
+        {% csrf_token %}
+        <div class="form-group">
+            <select class="form-control" name="category" id="cat">
+                <option value="car">Car</option>
+                <option value="motorcycle">Motorcycle</option>
+                <option value="car_motorcycle">Both</option>
+            </select>
+            <input class="btn btn-secondary form-control" type="submit" value="Search">
+        </div>
+      </form>  
+
+      <div id="all-parkings">
+        <ul>
+          {% for parking in parkings_of_the_page %}
+          <a id="ali" href="{% url 'parking' parking_id=parking.id %}">
+          <li class="parking">
+            <div class="row">
+              <div class="col-4 ">
+                <img class="parking-img" src="{{ parking.img_src }}.jpg">
+              </div>
+              <div class="col-8">
+                <h5>{{ parking.title }}</h5>
+                <small>{{ parking.category }}</small> <br>
+                {% if parking.slots == 0 %}
+                <small style="color: red;">full</small>
+                {% else %}
+                <small style="color: green;">{{ parking.slots }} slots available</small>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+        </a>
+          {% endfor %}
+          
+        </ul>
+      </div>
+    
+      <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-center">
+            {% if parkings_of_the_page.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ parkings_of_the_page.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% if parkings_of_the_page.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ parkings_of_the_page.next_page_number  }}">Next</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+</div>    
+{% endblock %}

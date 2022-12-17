@@ -78,6 +78,26 @@ p>a:hover {
 	background:transparent;
 }
 
+.user-icon3 {
+	position: absolute;
+	top: 85px;
+	right: 150px;
+	z-index: 10;
+	border: none;
+	outline: none;
+	background:transparent;
+}
+
+.user-icon4 {
+	position: absolute;
+	top: 150px;
+	right: 150px;
+	z-index: 10;
+	border: none;
+	outline: none;
+	background:transparent;
+}
+
 .username {
 	position: relative;
 }
@@ -127,3 +147,66 @@ p>a:hover {
 }
 
 
+ul#nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+	justify-content: flex-start;
+    height: 3rem;
+    background: #EFEFBB;  
+	background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB); 
+    background: linear-gradient(to right, #D4D3DD, #EFEFBB); 
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+
+ul#nav li.normal {
+    margin: 0 .5rem;
+    list-style: none;
+}
+
+ li#li_profile {
+   list-style: none;
+   margin-left: auto;
+   margin-right: 2rem;
+}
+
+
+ul li, ul li a  {
+    color: white;
+    font-size: 1.2rem;
+    text-shadow: 0 0 4px black;
+    text-decoration:none;
+    transition: font-size .3s; 
+}
+
+ul li a.brand {
+	font-family: 'Rubik 80s Fade', cursive;
+	font-size: 22px;
+	letter-spacing: -2px;
+	padding:0 .4rem ;
+	margin-bottom: 1rem;
+	list-style:none;
+}
+
+i {
+    margin-left: .1rem;
+}
+
+ul li:hover, ul li a:hover {
+    color: white;
+    text-decoration: none;
+    font-size: 1.45rem;
+}
+
+@media (min-width: 501px) and (max-width: 950px) {
+	#page-img {
+		display:none;
+	}
+	#upon-img {
+		display: none;
+	}
+}

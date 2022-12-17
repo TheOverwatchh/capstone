@@ -1,0 +1,32 @@
+{% extends "capstone/layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="../../static/capstone/parking.css">
+{% endblock %}
+
+{% block script1 %}
+{% endblock  %}
+
+{% block body %}
+  <nav>
+      <ul id="nav">
+        <li class="normal">
+          <a href="{% url 'index' %}" class="brand ss">Find Parking</a>
+        </li>
+        <li class="normal">|</li>
+        <li class="normal">
+            <a href="#mainpg" class="ss">All Parkings <i class="fas fa-car"></i> </a>
+          </li>
+          {% if logged %}
+          <li id="li_profile">
+            <a href="#">My profile <i class="fas fa-user"></i> </a>
+          </li>
+          {% else %}
+          <li id="li_profile">
+            <a href="{% url 'login' %}">login <i class="fas fa-user"></i> </a>
+          </li>
+          {% endif %}
+      </ul>
+  </nav>
+    
+{% endblock %}
