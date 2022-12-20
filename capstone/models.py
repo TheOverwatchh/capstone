@@ -14,33 +14,20 @@ yn = (
 
 # Create your models here.
 class User(AbstractUser):
-    pass
-
-# class Slot(models.Model):
-#     status = models.CharField(max_length=20, choices=yn, default="True")
-
-#     class Meta:
-#         abstract = True
-
-
-#     def __str__(self):
-#         return f'slot {self.id} is {self.status}'
-
+    times_logged = models.IntegerField(default=0)
 
 class Parking(models.Model):
     title = models.CharField(max_length=140, default="unknown")
     category = models.CharField(max_length=20, choices=categories, default="car")
     img_src = models.CharField(max_length=200, default="../../static/capstone/img/parking4.jpg")
-    # slots = models.ManyToManyField(Slot)
-    slots = models.IntegerField()
-    def __str__(self):
-        return self.title
-
-class Slot(models.Model):
-    status = models.CharField(max_length=20, choices=yn, default="True")
+    slots = models.IntegerField(default=0)
+    free_slots = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'slot {self.id} of {self.status} is {self.available}'
+        return f"{self.title}"
+
+
+
 
 
 

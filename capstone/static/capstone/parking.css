@@ -2,6 +2,7 @@ body {
     background: #EFEFBB;  
 	background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB); 
     background: linear-gradient(to right, #D4D3DD, #EFEFBB); 
+    background-size: cover;
 }
 
 ul#nav { 
@@ -59,7 +60,7 @@ ul#nav li:hover, ul li a:hover {
     font-size: 1.3rem;
 }
 div#title {
-    margin-top: 7vh;
+    padding-top: 7vh;
     text-align: center;
      
 }
@@ -80,27 +81,42 @@ section#slots {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
 }
 
 #slotsbox {
     min-width: 80%;
     max-width: 80%;
-    height: auto;
+    height: 80vh;
     max-height: 80vh;
     background: black;
     box-shadow: 0 0 .8rem black;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
 .slot {
-    background: white;
     text-align: center;
     padding: 5px;
     margin: 3px;
+}
+
+.slot-free {
+    background: #93F339;
+}
+
+.slot-ocupied {
+    background: red;
+}
+
+.slot-part:first-child h6 {
+    color: #93F339;
+}
+
+.slot-part h6 {
+    color: red;
 }
 
 #park-form {
@@ -111,4 +127,30 @@ section#slots {
     padding-top: 5rem;
     gap: 3rem;
 
+}
+
+#link-topo {
+    position: fixed;
+    right:2rem;
+    bottom: 2rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    background: #EFEFBB;  
+	background: -webkit-linear-gradient(to right, #95958E, #F3E52D); 
+    background: linear-gradient(to right, #95958E, #F3E52D); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: .3rem;
+    box-shadow: 0 0.1rem 0.6rem #00000009;
+    transition: all .7s;
+    z-index:98;
+}
+
+#link-topo:hover {
+    bottom: 3rem;
+    text-decoration: none;
+    text-transform: none;
 }

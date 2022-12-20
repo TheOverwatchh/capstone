@@ -33,14 +33,18 @@
             <div>
               <div>
                     <div class="username">
+                      <form action="{% url 'login' %}" method="POST"> {% csrf_token %}
                       <input id="campo" type="text" name="username" placeholder="U s e r n a m e" class=" ml-3 form-control" />               
                         <i class="fas fa-user user-icon1 text-secondary"></i>
                       <input id="campo2" type="password" name="password" placeholder="P a s s w o r d" class="ml-3 form-control mt-3">                    
                         <i class="user-icon2 fas fa-lock text-secondary"></i>
+                        <button type="submit" id="login_button" class="btn btn-secondary ml-3 mt-4">LOGIN</button>
+                        {{ message }}
+                      </form>
                     </div>              
               </div>            
             </div>       
-              <button id="login_button" class="btn btn-secondary ml-3 mt-4">LOGIN</button>
+              
           </div>
         </div>
         <div id="page-img" class="col-lg-6 col-md-0 d-inline p-0">

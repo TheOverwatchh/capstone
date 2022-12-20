@@ -24,30 +24,39 @@
     <div id="container" class="container">
       <div class="row m-0">
         <!-- div of the form -->
-        <div id="page-form" class="col-lg-6 col-md-12 d-inline p-0">
+        <!-- <form action="{% url 'register' %}"> -->
+          <div id="page-form" class="col-lg-6 col-md-12 d-inline p-0">
           <div class="container">
             <div>
-            <h2 id="login-h2" class="">Register</h2>
+            <h2 id="register-h2" class="">Register</h2>
             </div>
             <div>
               <div>
                 <div class="username">
-                  <input id="campo" type="text" name="" placeholder="U s e r n a m e" class=" ml-3 form-control" />               
+                  <form action="{% url 'register' %}" method="POST"> {% csrf_token %}
+                  <input id="campo" type="text" name="username" placeholder="U s e r n a m e" class=" ml-3 form-control" />               
                     <i class="fas fa-user user-icon1 text-secondary"></i>
-                    <input id="campo2"  type="email" name="" placeholder="E m a i l" class=" ml-3 mt-3 form-control" />               
+                    <input id="campo2"  type="email" name="email" placeholder="E m a i l" class=" ml-3 mt-3 form-control" />               
                     <i class="fas fa-envelope user-icon3 text-secondary"></i>
-                   <input id="campo3" type="password" name="" placeholder="P a s s w o r d" class="ml-3 form-control mt-3">                    
+                   <input id="campo3" type="password" name="password" placeholder="P a s s w o r d" class="ml-3 form-control mt-3">                    
                     <i class="user-icon4 fas fa-lock text-secondary"></i>
-                   <input id="campo3" type="password" name="" placeholder="C o n f i r m  P a s s w o r d" class="ml-3 form-control mt-3">                   
-
+                   <input id="campo3" type="password" name="password_confirm" placeholder="C o n f i r m  P a s s w o r d" class="ml-3 form-control mt-3">                   
+                   <select name="typeof" class="mt-3 ml-3 form-control" placeholder="Select the type of account">
+                    <option value="park_manager">Parking manager</option>
+                    <option value="user">User</option>
+                  </select>
+                  <button id="login_button" class="btn btn-secondary ml-3 mt-4">REGISTER</button>
+                  </form>
                 </div>
               </div>
               <div>                
              </div>             
             </div>       
-              <button id="login_button" class="btn btn-secondary ml-3 mt-4">LOGIN</button>
+             
           </div>
-        </div>
+          </div>
+          {{ message }}
+        <!-- </form> -->
         <div id="page-img" class="col-lg-6 col-md-0 d-inline p-0">
           <img id="parking_img" class="d-none d-lg-block" src="../../static/capstone/img/parking.jpg">
           <div id="upon-img">

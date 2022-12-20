@@ -10,16 +10,23 @@
 {% block body %}
   <nav>
       <ul id="nav">
+        {% if user.is_staff == False %}
         <li class="normal">
-          <a href="{% url 'index' %}" class="brand ss">Find Parking</a>
+          <a href="{% url 'index' %}" class="brand ss">Find parking</a>
         </li>
+        {% endif %}
+        {% if user.is_staff == True %}
+        <li class="normal">
+          <a href="{% url 'index' %}" class="ss">Create parking</a>
+        </li>
+        {% endif %}
         <li class="normal">|</li>
         <li class="normal">
             <a href="{% url 'allParkings' %}" class="ss">All Parkings <i class="fas fa-car"></i> </a>
           </li>
-          {% if logged %}
+          {% if user.is_authenticated %}
           <li id="li_profile">
-            <a href="#">My profile <i class="fas fa-user"></i> </a>
+            <a href="{% url 'profile' %}">{{user.username}}<i class="fas fa-user"></i> </a>
           </li>
           {% else %}
           <li id="li_profile">
@@ -34,19 +41,17 @@
     <div id="upon-img">
       <h1>Find Parking</h1>
       <h5>When you don't know where to park</h5>
-      {% if logged %}
-      <a href="#mainpg" class="btn btn-warning mt-2 ss">Get Started</a>
-      {% else %}
       <div class="row">
-        <div class="col-6">
-      <a class="btn btn-warning mt-2 " href="{% url 'allParkings' %}">Get Started </a>
+        {% if user.is_authenticated %}
+        <div class="col-12">
+           <a class="btn btn-warning mt-2 " href="{% url 'allParkings' %}">Get Started </a>
+        {% else %}
         </div>
-        <div class="col-6">
+        <div class="col-12 text-center">
       <a class="btn btn-warning mt-2 " href="{% url 'login' %}">login <i class="fas fa-user"></i> </a>
-
         </div>
-      </div>
-      {% endif %} 
+        {% endif %}
+      </div> 
     </div>
  </div>   
 {% endblock %}

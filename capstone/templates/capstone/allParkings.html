@@ -10,16 +10,24 @@
 {% block body %}
   <nav>
       <ul id="nav">
+        {% if user.is_staff == False %}
         <li class="normal">
-          <a href="{% url 'index' %}" class="brand ss">Find Parking</a>
+          <a href="{% url 'index' %}" class="brand ss">Find parking</a>
         </li>
+        {% endif %}
+        {% if user.is_staff == True %}
+        <li class="normal">
+          <a href="{% url 'index' %}" class="ss">Create parking</a>
+        </li>
+        {% endif %}
+        
         <li class="normal">|</li>
         <li class="normal">
             <a href="" class="ss">All Parkings <i class="fas fa-car"></i> </a>
           </li>
-          {% if logged %}
+          {% if user.is_authenticated %}
           <li id="li_profile">
-            <a href="#">My profile <i class="fas fa-user"></i> </a>
+            <a href="{% url 'profile' %}">{{ user.username }}<i class="fas fa-user"></i> </a>
           </li>
           {% else %}
           <li id="li_profile">
@@ -56,10 +64,10 @@
               <div class="col-8">
                 <h5>{{ parking.title }}</h5>
                 <small>{{ parking.category }}</small> <br>
-                {% if parking.slots == 0 %}
+                {% if parking.free_slots_n == 0 %}
                 <small style="color: red;">full</small>
                 {% else %}
-                <small style="color: green;">{{ parking.slots }} slots available</small>
+                <small style="color: green;">{{ parking.free_slots }} slots available</small>
                 {% endif %}
               </div>
             </div>

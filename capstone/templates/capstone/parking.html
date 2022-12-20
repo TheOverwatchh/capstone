@@ -10,16 +10,23 @@
 {% block body %}
   <nav>
       <ul id="nav">
+        {% if user.is_staff == False %}
         <li class="normal">
-          <a href="{% url 'index' %}" class="brand ss">Find Parking</a>
+          <a href="{% url 'index' %}" class="brand ss">Find parking</a>
         </li>
+        {% endif %}
+        {% if user.is_staff == True %}
+        <li class="normal">
+          <a href="{% url 'index' %}" class="ss">Create parking</a>
+        </li>
+        {% endif %}
         <li class="normal">|</li>
         <li class="normal">
             <a href="{% url 'allParkings' %}" class="ss">All Parkings <i class="fas fa-car"></i> </a>
           </li>
-          {% if logged %}
+          {% if user.is_authenticated %}
           <li id="li_profile">
-            <a href="#">My profile <i class="fas fa-user"></i> </a>
+            <a href="{% url 'profile' %}">{% user.username %}<i class="fas fa-user"></i> </a>
           </li>
           {% else %}
           <li id="li_profile">
@@ -46,7 +53,7 @@
           </select>
           <input type="text" name="placa" class="form-control" placeholder="License Plate">
           <select name="slot" class="form-control">
-            {% for slot in slots %}
+            {% for slot in free_slots %}
             <option value="{{ forloop.counter }}">{{forloop.counter}}</option>
             {% endfor %}
           </select>
@@ -55,15 +62,31 @@
       </div>
       <div class="col-6" id="slots-div">
         <h3>Slots</h3>
-        <div id="slotsbox" class="slot">
-          {% for slot in slots %}
-          <span id="slot" class="slot">
+        <div id="slotsbox" class="slot row">
+          <div class="col-6 slot-part">
+          <h6>Free</h6>
+          {% for slot in free_slots %}
+          <div id="slot" class="slot slot-free">
             <span id="forloop.counter">{{ forloop.counter }}</span>
-          </span>
+          </div>
           {% endfor %}
+        </div>
+        <div class="col-6 slot-part">
+          <h6>Ocupied</h6>
+          {% for s in ocupied_slots %}
+          <div id="slot" class="slot slot-ocupied">
+            <span id="forloop.counter">{{ s }}</span>
+          </div>
+          {% endfor %}
+        </div>
         </div>
       </div>
     </div>
   </section>
+
+  <a href="#title" id="link-topo">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+</div>
     
 {% endblock %}

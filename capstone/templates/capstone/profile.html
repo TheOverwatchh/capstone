@@ -10,9 +10,16 @@
 {% block body %}
   <nav>
       <ul id="nav">
+        {% if user.is_staff == False %}
         <li class="normal">
-          <a href="{% url 'index' %}" class="brand ss">Find Parking</a>
+          <a href="{% url 'index' %}" class="brand">Find parking</a>
         </li>
+        {% endif %}
+        {% if user.is_staff == True %}
+        <li class="normal">
+          <a href="{% url 'index' %}" class="">Create parking</a>
+        </li>
+        {% endif %}
         <li class="normal">|</li>
         <li class="normal">
             <a href="{% url 'allParkings' %}" class="ss">All Parkings <i class="fas fa-car"></i> </a>
@@ -38,7 +45,7 @@
   </section>
 
   <section id="logout-btn-prof">
-    <form action="">
+    <form action="{% url 'logout' %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger form-control">Logout</button>
     </form>

@@ -24,6 +24,16 @@ body {
 	letter-spacing: 0.09em;
 }
 
+#container #register-h2{
+	margin-top: 4.4rem;
+	margin-left: 20px;
+	font-family: Roboto;
+	font-weight: 900;
+	font-size: 35px;
+	color:#424242;
+	letter-spacing: 0.09em;
+}
+
 #container p#login-p {
 	font-family: Roboto;
 	color:#424242;
@@ -102,7 +112,7 @@ p>a:hover {
 	position: relative;
 }
 
-.username input {
+.username input, .username select {
 	height: 50px;
 	width: 70%;
 	border: none;
