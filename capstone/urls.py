@@ -10,6 +10,8 @@ urlpatterns = [
     path('logout', views.logout, name="logout"),
     path('filter', views.filter, name="filter"),
     path('allParkings', views.allParkings, name="allParkings"),
+    path('createParking', views.createParking, name="createParking"),
     path('profile', views.profile, name="profile"),
     path('parking/<int:parking_id>', views.parking, name="parking"),
+    path('deleteParking/<int:parking_id>', views.deleteParking, name="deleteParking"),
 ]

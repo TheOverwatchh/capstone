@@ -39,7 +39,9 @@
                       <input id="campo2" type="password" name="password" placeholder="P a s s w o r d" class="ml-3 form-control mt-3">                    
                         <i class="user-icon2 fas fa-lock text-secondary"></i>
                         <button type="submit" id="login_button" class="btn btn-secondary ml-3 mt-4">LOGIN</button>
-                        {{ message }}
+                        {% if message %}
+                       <br> {{ message }}
+                        {% endif %}
                       </form>
                     </div>              
               </div>            

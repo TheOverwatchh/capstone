@@ -17,32 +17,54 @@
         {% endif %}
         {% if user.is_staff == True %}
         <li class="normal">
-          <a href="{% url 'index' %}" class="">Create parking</a>
+          <a href="{% url 'createParking' %}" class="">Create parking</a>
         </li>
         {% endif %}
         <li class="normal">|</li>
         <li class="normal">
             <a href="{% url 'allParkings' %}" class="ss">All Parkings <i class="fas fa-car"></i> </a>
           </li>
-          {% if logged %}
           <li id="li_profile">
-            <a href="#">My profile <i class="fas fa-user"></i> </a>
+            <a href="#">{{ user.username }} <i class="fas fa-user"></i> </a>
           </li>
-          {% else %}
-          <li id="li_profile">
-            <a href="{% url 'login' %}">login <i class="fas fa-user"></i> </a>
-          </li>
-          {% endif %}
+          
       </ul>
   </nav>
 
   <section id="username">
-    <h1>Profile username</h1>
+    <h1>{{ user.username }}</h1> {% if user.is_staff == True %}<span>parking manager</span> {% else %}<span>client user</span>{% endif %}
     <div class="row">
-      <div class="col-4"><h2>Logged X times</h2><i class="fas fa-user"></i></div>
-      <div class="col-4"><h2>Parked Y times</h2><i class="fas fa-car"></i></div>
+      <div id="logged" class="col-md-4 col-5 hidden"><h2 >Logged <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ lghn }}</span> times</h2><i class="fas fa-user"></i></div>
+      <div id="park" class="col-md-4 col-5 hidden">
+        {% if user.is_staff == False %}
+        <h2>Parked <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ user.times_parked }}</span>  times</h2><i class="fas fa-car"></i>
+        {% else %}
+        <h2>Created <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ cphn }}</span> Parkings</h2><i class="fas fa-car"></i>
+        {%  endif%}
+      </div>
     </div>
   </section>
+
+  <div id="hidden-logs" style="display:none;">
+    <ul>
+      {% for x in lgh %}
+      <li class="">{{x}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% if user.is_staff == True %}
+  <div id="hidden-created-parks" style="display:none;">
+    <ul>
+      {% for x in cph %}
+      <li class="">{{x}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% else %}
+  <div id="hidden-created-parks">
+    <!-- for x in parks (need to implement the get funcionality in profile page, after the park fuctionality is done)-->
+  </div>
+  {% endif %}
 
   <section id="logout-btn-prof">
     <form action="{% url 'logout' %}">
@@ -50,5 +72,45 @@
       <button type="submit" class="btn btn-danger form-control">Logout</button>
     </form>
   </section>
-    
+
+
+  <a href="#username" id="link-topo">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+</div>
+
+{% endblock %}
+
+{% block script2 %}
+
+<script>
+  const loggedDiv = document.getElementById('logged');
+  const parkDiv = document.getElementById('park');
+  const div = document.getElementById('hidden-created-parks');
+  const div2 = document.getElementById('hidden-logs');
+
+
+  loggedDiv.addEventListener('click', ()=> {
+    if (loggedDiv.classList.contains('hidden')) {
+        div.style.display = 'none';
+        loggedDiv.classList.remove('hidden');
+        div2.style.display = 'block';
+    } else {
+      loggedDiv.classList.add('hidden');
+      div2.style.display = 'none';    
+    }
+  });
+  parkDiv.addEventListener('click', ()=> {
+    console.log(parkDiv.classList.contains('hidden'))
+    if (parkDiv.classList.contains('hidden')) {
+       div2.style.display = 'none'
+        parkDiv.classList.remove('hidden');
+        div.style.display = 'block';
+    } else {
+      parkDiv.classList.add('hidden');
+      div.style.display = 'none';    
+    }
+  });
+</script>
+
 {% endblock %}

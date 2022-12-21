@@ -17,7 +17,7 @@
         {% endif %}
         {% if user.is_staff == True %}
         <li class="normal">
-          <a href="{% url 'index' %}" class="ss">Create parking</a>
+          <a href="{% url 'createParking' %}" class="ss">Create parking</a>
         </li>
         {% endif %}
         
@@ -43,12 +43,15 @@
 
         {% csrf_token %}
         <div class="form-group">
-            <select class="form-control" name="category" id="cat">
+            <select class="form-control" name="category" id="cat" value="Filter">
+              <optgroup label="Filter">
+                <option style="display: none;">Filter</option>
                 <option value="car">Car</option>
                 <option value="motorcycle">Motorcycle</option>
-                <option value="car_motorcycle">Both</option>
+                <option value="both">Car and motorcycle</option>
+              </optgroup>
             </select>
-            <input class="btn btn-secondary form-control" type="submit" value="Search">
+            <input class="btn btn-secondary form-control" type="submit" value="Filter">
         </div>
       </form>  
 
@@ -62,8 +65,13 @@
                 <img class="parking-img" src="{{ parking.img_src }}.jpg">
               </div>
               <div class="col-8">
+                {% if user.username == parking.creator %}
+                <form action="{% url 'deleteParking' parking_id=parking.id %}">
+                <button type="submit" style="float:right; margin-right: 2vw; margin-top: -.5vw;" class="btn btn-outline-danger">Delete</button>
+                </form>
+                {% endif %}
                 <h5>{{ parking.title }}</h5>
-                <small>{{ parking.category }}</small> <br>
+                <small>{% if parking.category == 'both' %}car and motorcycle{% else %}{{ parking.category }}{%endif%}</small> <br>
                 {% if parking.free_slots_n == 0 %}
                 <small style="color: red;">full</small>
                 {% else %}

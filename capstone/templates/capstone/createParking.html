@@ -1,0 +1,55 @@
+{% extends "capstone/layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="../../static/capstone/createParking.css">
+{% endblock %}
+
+{% block script1 %}
+{% endblock  %}
+
+{% block body %}
+  <nav>
+      <ul id="nav">
+        {% if user.is_staff == False %}
+        <li class="normal">
+          <a href="{% url 'index' %}" class="brand">Find parking</a>
+        </li>
+        {% endif %}
+        {% if user.is_staff == True %}
+        <li class="normal">
+          <a href="{% url 'createParking' %}" class="">Create parking</a>
+        </li>
+        {% endif %}
+        <li class="normal">|</li>
+        <li class="normal">
+            <a href="{% url 'allParkings' %}" class="ss">All Parkings <i class="fas fa-car"></i> </a>
+          </li>
+          <li id="li_profile">
+            <a href="{% url 'profile' %}">{{ user.username }} <i class="fas fa-user"></i> </a>
+          </li>
+          
+      </ul>
+  </nav>
+
+  
+
+  <section id="logout-btn-prof">
+    <h1>Create Parking</h1>
+    <form id="cpf" action="{% url 'createParking' %}" method="POST">
+      {% csrf_token %}
+      <input class="form-control" type="text" name="title" placeholder="T I T L E">
+      <input class="form-control" type="text" name="img_src" placeholder="L I N K   O F   T H E   I M A G E">
+      <input class="form-control" type="number" name="slots" placeholder="N U M B E R   O F   S L O T S">
+      <select class="form-control" name="category" id="cat">
+        <optgroup label="category">
+          <option style="display: none;">category</option>
+          <option value="car">Car</option>
+          <option value="motorcycle">Motorcycle</option>
+          <option value="both">Car and motorcycle</option>
+        </optgroup>
+      </select>
+      <button type="submit" class="btn btn-secondary form-control">SUBMIT</button>
+    </form>
+  </section>
+    
+{% endblock %}

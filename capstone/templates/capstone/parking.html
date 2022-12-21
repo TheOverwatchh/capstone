@@ -17,7 +17,7 @@
         {% endif %}
         {% if user.is_staff == True %}
         <li class="normal">
-          <a href="{% url 'index' %}" class="ss">Create parking</a>
+          <a href="{% url 'createParking' %}" class="ss">Create parking</a>
         </li>
         {% endif %}
         <li class="normal">|</li>
@@ -26,7 +26,7 @@
           </li>
           {% if user.is_authenticated %}
           <li id="li_profile">
-            <a href="{% url 'profile' %}">{% user.username %}<i class="fas fa-user"></i> </a>
+            <a href="{% url 'profile' %}">{{ user.username }}<i class="fas fa-user"></i> </a>
           </li>
           {% else %}
           <li id="li_profile">
@@ -36,39 +36,25 @@
       </ul>
   </nav>
 
-  <div id="title"><h1>{{parking.title}}</h1></div>
+  <div id="title"><h1>{{parking.title}}</h1> <small>creator: {{parking.creator}}</small></div>
   <section id="location">
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.2339235689556!2d-34.847163585722406!3d-7.098863871569232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7acdd6df40f5401%3A0xbdb630ecc698116e!2sManaira%20Shopping!5e0!3m2!1spt-BR!2sbr!4v1671294737524!5m2!1spt-BR!2sbr" style="border:0; width: 98vw; height: 75vh;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </section>
   <hr>
   <section id="slots">
     <div class="row">
-      <div class="col-6 text-center">
-        <h3>Park</h3>
-        <form id="park-form" action="">
-          {% csrf_token %}
-          <select name="category" class="form-control">
-            <option value="car">Car</option>
-            <option value="motorcycle">Motorcycle</option>
-          </select>
-          <input type="text" name="placa" class="form-control" placeholder="License Plate">
-          <select name="slot" class="form-control">
-            {% for slot in free_slots %}
-            <option value="{{ forloop.counter }}">{{forloop.counter}}</option>
-            {% endfor %}
-          </select>
-          <button class="btn btn-warning form-control">Park</button>
-        </form>
-      </div>
-      <div class="col-6" id="slots-div">
+      <div class="col-12" id="slots-div">
         <h3>Slots</h3>
         <div id="slotsbox" class="slot row">
           <div class="col-6 slot-part">
           <h6>Free</h6>
           {% for slot in free_slots %}
-          <div id="slot" class="slot slot-free">
-            <span id="forloop.counter">{{ forloop.counter }}</span>
-          </div>
+          <a href="#slots"> 
+            <div id="slot" class="slot slot-free">
+              <span id="forloop.counter">{{ forloop.counter }}</span>
+            </div>
+          </a>
+         
           {% endfor %}
         </div>
         <div class="col-6 slot-part">
@@ -81,8 +67,31 @@
         </div>
         </div>
       </div>
+      <div id="hidden" class="col-12 text-center" style="display: none;">
+        <form id="park-form" action="">
+          {% csrf_token %}
+          <input type="hidden" name="parkingid" value="{{ parking.id }}">
+
+            <select class="form-control" name="category" id="cat" value="category">
+              <optgroup label="Choose the category of the vehicle">
+                <option style="display: none;">Category</option>
+                <option value="car">Car</option>
+                <option value="motorcycle">Motorcycle</option>
+              </optgroup>
+            </select>
+          
+          <input type="text" name="placa" class="form-control" placeholder="Enter the License Plate">
+          <button class="btn btn-warning form-control">Park</button>
+        </form>
+      </div> 
     </div>
   </section>
+
+  {% if user.username == parking.creator %}
+                <form action="{% url 'deleteParking' parking_id=parking.id %}" style="text-align:center;">
+                <button type="submit" style="width:50%; transform:translateY(-2rem); border-radius:20px;" class="btn btn-danger">Delete Parking Lot</button>
+                </form>
+  {% endif %}
 
   <a href="#title" id="link-topo">
     <i class="fas fa-arrow-up"></i>
@@ -90,3 +99,17 @@
 </div>
     
 {% endblock %}
+
+{% block script2 %}
+<script>
+  const slot = document.querySelectorAll('.slot-free');
+  const hidden = document.querySelector('#hidden');
+  console.log(slot)
+  console.log(hidden)
+  for(let s in slot) {
+    slot[s].addEventListener('click', () => {
+    hidden.style.display = 'block';
+  })
+  }
+</script>
+{% endblock  %}
