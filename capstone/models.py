@@ -16,9 +16,6 @@ yn = (
 # Create your models here.
 class User(AbstractUser):
     pass
-    # times_logged = models.IntegerField(default=0)
-    # times_parked = models.IntegerField(default=0)
-    # parks_created = models.IntegerField(default=0)
 
 class Parking(models.Model):
     title = models.CharField(max_length=140, default="unknown")
@@ -30,6 +27,7 @@ class Parking(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
 
 class Loghistory(models.Model):
     logid = models.AutoField(primary_key=True, default=0)
@@ -60,5 +58,9 @@ class Createparkhistory(models.Model):
          return f'{self.user} created the {self.park} in {self.date}' 
 
 
-
- 
+class Park(models.Model):
+    logid = models.AutoField(primary_key=True, default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_who_is_parking")
+    category = models.CharField(max_length=15, default="unknown")
+    licensePlate = models.CharField(max_length=8, default="aaaa0000")
+    parking = models.ForeignKey(Parking, on_delete=models.CASCADE, related_name="parking_that_is_being_parked")

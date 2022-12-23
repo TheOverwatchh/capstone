@@ -37,7 +37,7 @@
       <div id="logged" class="col-md-4 col-5 hidden"><h2 >Logged <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ lghn }}</span> times</h2><i class="fas fa-user"></i></div>
       <div id="park" class="col-md-4 col-5 hidden">
         {% if user.is_staff == False %}
-        <h2>Parked <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ user.times_parked }}</span>  times</h2><i class="fas fa-car"></i>
+        <h2>Parked <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ parksn }}</span>  times</h2><i class="fas fa-car"></i>
         {% else %}
         <h2>Created <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ cphn }}</span> Parkings</h2><i class="fas fa-car"></i>
         {%  endif%}
@@ -61,8 +61,12 @@
     </ul>
   </div>
   {% else %}
-  <div id="hidden-created-parks">
-    <!-- for x in parks (need to implement the get funcionality in profile page, after the park fuctionality is done)-->
+  <div id="hidden-created-parks" style="display:none">
+    <ul>
+    {% for x in parks %}
+    <li>{{ x }}</li>
+    {% endfor%}
+  </ul>
   </div>
   {% endif %}
 

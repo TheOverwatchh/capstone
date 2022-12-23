@@ -82,7 +82,7 @@ section#slots a {
 }
 
 section#slots a:hover {
-    text-decoration: none;
+    text-decoration: none  ;
 }
 #slots-div {
     display: flex;
@@ -90,6 +90,7 @@ section#slots a:hover {
     align-items: center;
     justify-content: center; 
 }
+
 
 #slotsbox {
     min-width: 80%;
@@ -104,7 +105,7 @@ section#slots a:hover {
     overflow-y: auto;
 }
 
-#hidden {
+#hidden, #hidden_ocupied {
     max-width:30%;
     margin: 0 auto;
 }
@@ -126,7 +127,13 @@ section#slots a:hover {
 }
 
 .slot-ocupied {
-    background: red;
+    background: #EA3333;
+    transition: all .15s;
+    cursor: pointer;
+}
+
+.slot-ocupied:hover {
+    background: #B00909;
 }
 
 .slot-part:first-child h6 {

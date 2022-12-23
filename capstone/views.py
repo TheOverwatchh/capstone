@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.core.paginator import Paginator 
-from .models import Parking, User, Loghistory, Createparkhistory
+from .models import Parking, User, Loghistory, Createparkhistory, Parkhistory, Park
 from django.db import IntegrityError
 from django.urls import reverse 
 from django.contrib.auth import authenticate, login as login_dj, logout as logout_dj
@@ -213,11 +213,45 @@ def profile(request):
     lghn = len(lgh)
     cph = Createparkhistory.objects.filter(user=request.user).order_by('-logid')
     cphn = len(cph)
+    parks = Parkhistory.objects.filter(user=request.user).order_by('-logid')
+    parksn = len(parks)
+
     
 
     return render(request, "capstone/profile.html", {
         "lgh": lgh,
         "lghn": lghn,
         "cph": cph,
-        "cphn": cphn
+        "cphn": cphn,
+        "parks":parks,
+        "parksn":parksn 
     })    
+
+def park(request):
+    if request.method == 'POST':
+        key = request.POST['parkingid']
+        category = request.POST['category']
+        licensePlate = request.POST['placa']
+        p_n = len(Park.objects.all()) 
+        unique = p_n + 1
+        user = request.user
+        parking = Parking.objects.get(pk=key)
+        p = Park(logid=unique,user=user, category=category, licensePlate=licensePlate, parking=parking)
+        p.save()
+        ph_n = len(Parkhistory.objects.all())
+        unique2 = ph_n + 1
+        ph = Parkhistory(logid=unique2, user=user, park=parking)
+        ph.save()
+        parking.free_slots = parking.free_slots - 1
+        parking.save()
+        return redirect(f'/parking/{parking.id}')
+
+def unpark(request):
+    if request.method == 'POST':
+        parking = Parking.objects.get(pk=request.POST['parkingid'])
+        user = request.user
+        park = Park.objects.filter(user=user, parking=parking)
+        park.delete()
+        parking.free_slots = parking.free_slots + 1
+        parking.save()
+        return redirect(f'/parking/{parking.id}')

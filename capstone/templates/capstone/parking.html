@@ -48,12 +48,15 @@
         <div id="slotsbox" class="slot row">
           <div class="col-6 slot-part">
           <h6>Free</h6>
-          {% for slot in free_slots %}
-          <a href="#slots"> 
-            <div id="slot" class="slot slot-free">
-              <span id="forloop.counter">{{ forloop.counter }}</span>
-            </div>
-          </a>
+          {% for slot in free_slots %} 
+           <a href="#slots"> 
+             
+            
+               <div id="slot" class="slot slot-free">
+                 <span id="forloop.counter">{{ forloop.counter }}</span>
+               </div>
+        
+            </a>
          
           {% endfor %}
         </div>
@@ -67,10 +70,10 @@
         </div>
         </div>
       </div>
-      <div id="hidden" class="col-12 text-center" style="display: none;">
-        <form id="park-form" action="">
-          {% csrf_token %}
-          <input type="hidden" name="parkingid" value="{{ parking.id }}">
+      <div id="hidden" class="col-12 text-center mt-3" style="display: none;">
+        <form id="park-form" action="{% url 'park' %}" method="POST">
+        {% csrf_token %}
+          <input id="parking-id" type="hidden" name="parkingid" value="{{ parking.id }}">
 
             <select class="form-control" name="category" id="cat" value="category">
               <optgroup label="Choose the category of the vehicle">
@@ -80,10 +83,18 @@
               </optgroup>
             </select>
           
-          <input type="text" name="placa" class="form-control" placeholder="Enter the License Plate">
-          <button class="btn btn-warning form-control">Park</button>
+          <input id="licensePlate" type="text" name="placa" class="form-control" placeholder="Enter the License Plate">
+          <button id="park-button" class="btn btn-warning form-control">Park</button>
         </form>
       </div> 
+      <div id="hidden_ocupied" class="col-12 text-center mt-3" style="display: none;">
+        <form id="park-form" action="{% url 'unpark' %}" method="POST">
+        {% csrf_token %}
+          <input id="parking-id" type="hidden" name="parkingid" value="{{ parking.id }}">
+        
+          <button id="park-button" class="btn btn-danger form-control">Unpark</button>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -104,12 +115,25 @@
 <script>
   const slot = document.querySelectorAll('.slot-free');
   const hidden = document.querySelector('#hidden');
-  console.log(slot)
+  console.log(slot);
   console.log(hidden)
   for(let s in slot) {
     slot[s].addEventListener('click', () => {
+    document.querySelector('#hidden_ocupied').style.display = 'none';  
     hidden.style.display = 'block';
-  })
-  }
+  })};
+  
+</script>
+<script>
+  const slot2 = document.querySelectorAll('.slot-ocupied');
+  const hidden2 = document.querySelector('#hidden_ocupied');
+  console.log(slot2);
+  console.log(hidden2);
+    for(let s in slot2) {
+    slot2[s].addEventListener('click', () => { 
+    document.querySelector('#hidden').style.display = 'none';  
+    hidden2.style.display = 'block';
+  });
+};
 </script>
 {% endblock  %}
