@@ -29,6 +29,7 @@
             <a href="{% url 'profile' %}">{{ user.username }}<i class="fas fa-user"></i> </a>
           </li>
           {% else %}
+
           <li id="li_profile">
             <a href="{% url 'login' %}">login <i class="fas fa-user"></i> </a>
           </li>
@@ -37,8 +38,9 @@
   </nav>
 
   <div id="title"><h1>{{parking.title}}</h1> <small>creator: {{parking.creator}}</small></div>
-  <section id="location">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.2339235689556!2d-34.847163585722406!3d-7.098863871569232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7acdd6df40f5401%3A0xbdb630ecc698116e!2sManaira%20Shopping!5e0!3m2!1spt-BR!2sbr!4v1671294737524!5m2!1spt-BR!2sbr" style="border:0; width: 98vw; height: 75vh;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <input type="hidden" id="ed" value="{{parking.address}}">
+  <section id="map">
+    
   </section>
   <hr>
   <section id="slots">
@@ -70,34 +72,72 @@
         </div>
         </div>
       </div>
+      {% if message %}
+        <div class="container text-center mt-3">
+          {{message}} <br>
+          <form action="{% url 'parking' parking_id=whereParkedID %}">
+          <button id="message-hidden" class="btn btn-warning mt-2">See where you are parked</button>
+          </form>
+        </div>
+  
+      {% endif %}
       <div id="hidden" class="col-12 text-center mt-3" style="display: none;">
         <form id="park-form" action="{% url 'park' %}" method="POST">
         {% csrf_token %}
           <input id="parking-id" type="hidden" name="parkingid" value="{{ parking.id }}">
 
             <select class="form-control" name="category" id="cat" value="category">
+              {% if parking.category == 'both' %}
               <optgroup label="Choose the category of the vehicle">
                 <option style="display: none;">Category</option>
                 <option value="car">Car</option>
                 <option value="motorcycle">Motorcycle</option>
               </optgroup>
+              {% elif parking.category == 'car' %}     
+                <option value="car">Car</option>
+              {% elif parking.category == 'motorcycle' %}
+               <option value="motorcycle">Motorcycle</option>
+              {% endif %}
             </select>
           
           <input id="licensePlate" type="text" name="placa" class="form-control" placeholder="Enter the License Plate">
           <button id="park-button" class="btn btn-warning form-control">Park</button>
         </form>
       </div> 
-      <div id="hidden_ocupied" class="col-12 text-center mt-3" style="display: none;">
+
+      {% if user.username == parking.creator %}
+      <div id="hidden_ocupied" class="mt-5">
+      <input type="hidden" id="is_parked" value="yes">
+      <h5>You can't park here, it's your own parking lot!</h5>
+      </div>
+      {% endif %}
+
+  
+      {% if is_parked_anywhere %}
+        {% if is_parked %}
+      <div id="hidden_ocupied" class="col-12 text-center mt-3" style="display: block;">
         <form id="park-form" action="{% url 'unpark' %}" method="POST">
         {% csrf_token %}
+          <input type="hidden" id="is_parked" value="yes">
           <input id="parking-id" type="hidden" name="parkingid" value="{{ parking.id }}">
-        
+          <h6>You are parked here, unpark  when you want!</h6>
           <button id="park-button" class="btn btn-danger form-control">Unpark</button>
         </form>
       </div>
+      {% else %}
+      <div id="hidden_ocupied" class="col-12 text-center mt-3" style="display: none;">
+        <form id="park-form" action="{% url 'parking' parking_id=whereParkedID%}" method="POST">
+        {% csrf_token %}
+          <input type="hidden" id="is_parked" value="yes">
+          <input id="parking-id" type="hidden" name="parkingid" value="{{ parking.id }}">
+          <h6>You are already parked in other parking, you can only park one vehicle at a time</h6>
+          <button id="park-button" class="btn btn-warning form-control">See where you are parked</button>
+        </form>
+      </div>
+      {% endif %}
+      {% endif %}
     </div>
   </section>
-
   {% if user.username == parking.creator %}
                 <form action="{% url 'deleteParking' parking_id=parking.id %}" style="text-align:center;">
                 <button type="submit" style="width:50%; transform:translateY(-2rem); border-radius:20px;" class="btn btn-danger">Delete Parking Lot</button>
@@ -112,28 +152,99 @@
 {% endblock %}
 
 {% block script2 %}
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAffOdeZ2vqhjlTJQSEvxPepE2_n-H8uII&callback=initMap">
+</script>
+
+<script>
+  // Initialize and add the map
+function initMap() {
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer()
+  // const location = { lat: -7.1550488, lng:  -34.8072549 }; 
+  const location = { lat:  -7.11532, lng: -34.861 }; 
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 14,
+    center: location,
+  });
+
+  const geocoder = new google.maps.Geocoder();
+  var position_of_the_destiny = document.getElementById('ed').value
+  geocoder
+  .geocode({address: position_of_the_destiny, region: 'BR'})
+  .then((response) => {
+    const destiny_position = response.results[0].geometry.location;
+    let marker = new google.maps.Marker({
+    position: destiny_position,
+    map,
+    title: "Hello World!",
+  });
+  })
+
+
+  directionsRenderer.setMap(map);
+
+  const onChangeHandler = function () {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  };
+  onChangeHandler()
+
+  map.addListener("zoom_changed", () => {
+    window.setTimeout(() => {
+      map.setZoom(13);
+    }, 15000);
+  });
+  }
+
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+function success(pos) {
+  const crd = pos.coords;
+
+  console.log('Your current position is:');
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+  var position_of_the_user =  crd.latitude + ', ' + crd.longitude
+  var position_of_the_destiny = document.getElementById('ed').value
+  
+  directionsService
+  .route({
+    origin: {
+        query: position_of_the_user
+        // query: 'Condomínio Bougainville, João Pessoa - PB'
+    },
+    destination: {
+       query: position_of_the_destiny
+    },
+    travelMode: google.maps.TravelMode.DRIVING,
+  })
+  .then((response) => {
+    directionsRenderer.setDirections(response);
+  })
+  .catch((e) => window.alert("Directions request failed due to " + e)); 
+}
+
+const position_check = navigator.geolocation.getCurrentPosition(success);
+ 
+}
+
+window.initMap = initMap;
+
+</script>
+
 <script>
   const slot = document.querySelectorAll('.slot-free');
   const hidden = document.querySelector('#hidden');
   console.log(slot);
   console.log(hidden)
   for(let s in slot) {
-    slot[s].addEventListener('click', () => {
-    document.querySelector('#hidden_ocupied').style.display = 'none';  
-    hidden.style.display = 'block';
-  })};
-  
-</script>
-<script>
-  const slot2 = document.querySelectorAll('.slot-ocupied');
-  const hidden2 = document.querySelector('#hidden_ocupied');
-  console.log(slot2);
-  console.log(hidden2);
-    for(let s in slot2) {
-    slot2[s].addEventListener('click', () => { 
-    document.querySelector('#hidden').style.display = 'none';  
-    hidden2.style.display = 'block';
-  });
-};
+    slot[s].addEventListener('click', () => {  
+        if (document.querySelector('#hidden_ocupied')) {
+          document.querySelector('#hidden_ocupied').style.display = 'block';
+        }
+        else {
+        hidden.style.display = 'block';
+        }
+      })}; 
 </script>
 {% endblock  %}

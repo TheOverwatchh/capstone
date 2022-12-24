@@ -65,7 +65,9 @@ div#title {
      
 }
 
-section#location {
+section#map {
+   width: 100vw;
+   height: 75vh;
    display: flex;
    align-items: center;
    justify-content:center;

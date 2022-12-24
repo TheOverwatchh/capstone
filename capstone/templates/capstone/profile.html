@@ -34,34 +34,59 @@
   <section id="username">
     <h1>{{ user.username }}</h1> {% if user.is_staff == True %}<span>parking manager</span> {% else %}<span>client user</span>{% endif %}
     <div class="row">
-      <div id="logged" class="col-md-4 col-5 hidden"><h2 >Logged <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ lghn }}</span> times</h2><i class="fas fa-user"></i></div>
-      <div id="park" class="col-md-4 col-5 hidden">
-        {% if user.is_staff == False %}
+      <div id="logged" class="col-md-4 col-8 mb-2 mb-md-0 p-3 p-md-0 hidden"><h2 >Logged <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ lghn }}</span> times</h2><i class="fas fa-user"></i></div>
+      {% if user.is_staff == False %}
+      <div id="park" class="col-md-4 col-8 hidden">
+      
         <h2>Parked <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ parksn }}</span>  times</h2><i class="fas fa-car"></i>
-        {% else %}
-        <h2>Created <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ cphn }}</span> Parkings</h2><i class="fas fa-car"></i>
-        {%  endif%}
+        
+        <!-- <h2>Created <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ cphn }}</span> Parkings</h2><i class="fas fa-car"></i> -->
+       
       </div>
+      {% else %}
+      <div id="park" class="col-md-3 col-8 p-3 p-md-0 hidden">
+        <h2>Created <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ cphn }}</span> Parkings</h2><i class="fas fa-car"></i>
+       
+      </div>
+      <div id="park2" class="col-md-3 col-8 mt-2 mt-md-0 p-3 p-md-0 hidden">
+      
+        <h2>Parked <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ parksn }}</span>  times</h2><i class="fas fa-car"></i>
+        
+        <!-- <h2>Created <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ cphn }}</span> Parkings</h2><i class="fas fa-car"></i> -->
+       
+      </div>
+      {%  endif%}
     </div>
   </section>
 
-  <div id="hidden-logs" style="display:none;">
-    <ul>
+  <div id="hidden-logs" style="display:none;" class="border mt-5 mt-md-0 pt-5 pt-md-0">
+    <ul >
       {% for x in lgh %}
+      {% if x.date != None %}
       <li class="">{{x}}</li>
+      {% else %}
+      <li>{{x.user}} logged in UNVAILABLE DATE</li>
+      {% endif %}
       {% endfor %}
     </ul>
   </div>
   {% if user.is_staff == True %}
-  <div id="hidden-created-parks" style="display:none;">
+  <div id="hidden-created-parks" style="display:none;" class="border mt-5 mt-md-0 pt-5 pt-md-0">
     <ul>
       {% for x in cph %}
       <li class="">{{x}}</li>
       {% endfor %}
     </ul>
   </div>
+  <div id="hidden-parks" style="display:none" class="border mt-5 mt-md-0 pt-5 pt-md-0">
+    <ul>
+    {% for x in parks %}
+    <li>{{ x }}</li>
+    {% endfor%}
+  </ul>
+  </div>
   {% else %}
-  <div id="hidden-created-parks" style="display:none">
+  <div id="hidden-parks" style="display:none" class="border mt-5 mt-md-0 pt-5 pt-md-0">
     <ul>
     {% for x in parks %}
     <li>{{ x }}</li>
@@ -73,7 +98,7 @@
   <section id="logout-btn-prof">
     <form action="{% url 'logout' %}">
       {% csrf_token %}
-      <button type="submit" class="btn btn-danger form-control">Logout</button>
+      <button type="submit" class="btn btn-danger form-control mt-5 mt-md-0">Logout</button>
     </form>
   </section>
 
@@ -90,13 +115,16 @@
 <script>
   const loggedDiv = document.getElementById('logged');
   const parkDiv = document.getElementById('park');
+  const parksDiv = document.getElementById('park2');
   const div = document.getElementById('hidden-created-parks');
   const div2 = document.getElementById('hidden-logs');
+  const div3 = document.getElementById('hidden-parks');
 
 
   loggedDiv.addEventListener('click', ()=> {
     if (loggedDiv.classList.contains('hidden')) {
         div.style.display = 'none';
+        div3.style.display = 'none';
         loggedDiv.classList.remove('hidden');
         div2.style.display = 'block';
     } else {
@@ -105,14 +133,25 @@
     }
   });
   parkDiv.addEventListener('click', ()=> {
-    console.log(parkDiv.classList.contains('hidden'))
     if (parkDiv.classList.contains('hidden')) {
-       div2.style.display = 'none'
+       div2.style.display = 'none';
+       div3.style.display = 'none';
         parkDiv.classList.remove('hidden');
         div.style.display = 'block';
     } else {
       parkDiv.classList.add('hidden');
       div.style.display = 'none';    
+    }
+  });
+  parksDiv.addEventListener('click', ()=> {
+    if (parksDiv.classList.contains('hidden')) {
+       div.style.display = 'none';
+       div2.style.display = 'none';
+        parksDiv.classList.remove('hidden');
+        div3.style.display = 'block';
+    } else {
+      parksDiv.classList.add('hidden');
+      div3.style.display = 'none';    
     }
   });
 </script>

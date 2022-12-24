@@ -38,6 +38,7 @@
     <form id="cpf" action="{% url 'createParking' %}" method="POST">
       {% csrf_token %}
       <input class="form-control" type="text" name="title" placeholder="T I T L E">
+      <input class="form-control" type="text" name="address" placeholder="A D D R E S S">
       <input class="form-control" type="text" name="img_src" placeholder="L I N K   O F   T H E   I M A G E">
       <input class="form-control" type="number" name="slots" placeholder="N U M B E R   O F   S L O T S">
       <select class="form-control" name="category" id="cat">

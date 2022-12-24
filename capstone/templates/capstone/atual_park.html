@@ -1,0 +1,60 @@
+{% extends "capstone/layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="../../static/capstone/profile.css">
+{% endblock %}
+
+{% block script1 %}
+{% endblock  %}
+
+{% block body %}
+  <nav>
+      <ul id="nav">
+        {% if user.is_staff == False %}
+        <li class="normal">
+          <a href="{% url 'index' %}" class="brand">Find parking</a>
+        </li>
+        {% endif %}
+        {% if user.is_staff == True %}
+        <li class="normal">
+          <a href="{% url 'createParking' %}" class="">Create parking</a>
+        </li>
+        {% endif %}
+        <li class="normal">|</li>
+        <li class="normal">
+            <a href="{% url 'allParkings' %}" class="ss">All Parkings <i class="fas fa-car"></i> </a>
+          </li>
+          <li id="li_profile">
+            <a href="#">{{ user.username }} <i class="fas fa-user"></i> </a>
+          </li>
+          
+      </ul>
+  </nav>
+
+  <section id="username">
+    <h1>{{ user.username }}</h1> {% if user.is_staff == True %}<span>parking manager</span> {% else %}<span>client user</span>{% endif %}
+    {% if is_there_a_park == 'Yes' %}
+    <div style="margin-top: 10%;">
+      <h3><small>You are parked in </small>{% for p in park %}{{p.parking.title}} {% endfor %}</h3>
+      <h4> <small>With your </small>{%for p in park%}{{ p.category }}{% endfor %} <small>which License Plate is</small> {%for p in park%}{{ p.licensePlate }}{% endfor %}</h4>
+    </div>
+  
+    {% else %}
+    <div style="margin-top: 10%;">
+      <h3>You are not Parked anywhere, click in the button below and see the available parkings</h3>
+      <form action="{% url 'allParkings' %}">
+        <button type="submit" class="btn btn-warning">All Parkings</button>
+      </form>
+    </div>
+    {% endif %}
+  </section>
+
+
+
+{% endblock %}
+
+{% block script2 %}
+<script>
+
+</script>
+{% endblock %}

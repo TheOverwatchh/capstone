@@ -24,6 +24,7 @@ class Parking(models.Model):
     slots = models.IntegerField(default=0)
     free_slots = models.IntegerField(default=0)
     creator = models.CharField(max_length=140, default="unknown")
+    address = models.CharField(max_length=280, default="unknown")
 
     def __str__(self):
         return f"{self.title}"
@@ -32,7 +33,7 @@ class Parking(models.Model):
 class Loghistory(models.Model):
     logid = models.AutoField(primary_key=True, default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_logged")    
-    date = models.DateTimeField(auto_now_add=True) 
+    date = models.CharField(max_length=30, default="UNAVAILABLE DATE")
 
     def __str__(self):
          return f'{self.user} logged in {self.date}' 
@@ -42,7 +43,8 @@ class Parkhistory(models.Model):
     logid = models.AutoField(primary_key=True, default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_parked")    
     park = models.ForeignKey(Parking, on_delete=models.CASCADE, related_name="park_parked")    
-    date = models.DateTimeField(auto_now_add=True) 
+    date = models.CharField(max_length=30, default="UNAVAILABLE DATE")
+
 
     def __str__(self):
          return f'{self.user} parked at {self.park} in {self.date}' 
@@ -52,7 +54,7 @@ class Createparkhistory(models.Model):
     logid = models.AutoField(primary_key=True, default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_creator")    
     park = models.ForeignKey(Parking, on_delete=models.CASCADE, related_name="park_creaed")    
-    date = models.DateTimeField(auto_now_add=True) 
+    date = models.CharField(max_length=30, default="UNAVAILABLE DATE") 
 
     def __str__(self):
          return f'{self.user} created the {self.park} in {self.date}' 
