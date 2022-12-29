@@ -70,7 +70,7 @@
       {% endfor %}
     </ul>
   </div>
-  {% if user.is_staff == True %}
+  <!-- {% if user.is_staff == True %}
   <div id="hidden-created-parks" style="display:none;" class="border mt-5 mt-md-0 pt-5 pt-md-0">
     <ul>
       {% for x in cph %}
@@ -86,6 +86,13 @@
   </ul>
   </div>
   {% else %}
+  <div id="hidden-created-parks" style="display:none;" class="border mt-5 mt-md-0 pt-5 pt-md-0">
+    <ul>
+      {% for x in cph %}
+      <li class="">{{x}}</li>
+      {% endfor %}
+    </ul>
+  </div>
   <div id="hidden-parks" style="display:none" class="border mt-5 mt-md-0 pt-5 pt-md-0">
     <ul>
     {% for x in parks %}
@@ -93,7 +100,22 @@
     {% endfor%}
   </ul>
   </div>
-  {% endif %}
+  {% endif %} -->
+
+  <div id="hidden-created-parks" style="display:none;" class="border mt-5 mt-md-0 pt-5 pt-md-0">
+    <ul>
+      {% for x in cph %}
+      <li class="">{{x}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div id="hidden-parks" style="display:none" class="border mt-5 mt-md-0 pt-5 pt-md-0">
+    <ul>
+    {% for p in parks %}
+    <li>{{ p }}</li>
+    {% endfor%}
+  </ul>
+  </div>
 
   <section id="logout-btn-prof">
     <form action="{% url 'logout' %}">

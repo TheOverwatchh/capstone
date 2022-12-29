@@ -74,8 +74,6 @@ section#map {
    background-position:fixed;
 }
 
-button#maps-btn {}
-
 section#slots {
     padding-top: 3rem;
     height: 100vh;

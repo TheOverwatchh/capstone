@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from django.urls import reverse 
 from datetime import datetime
 from django.contrib.auth import authenticate, login as login_dj, logout as logout_dj
+from PIL import Image
 # Create your views here.
 def login(request):
     if request.method == 'GET':
@@ -109,13 +110,14 @@ def createParking(request):
     else:
         title = request.POST['title']
         img_src = request.POST['img_src']
+        img_srcn = f'/static/capstone/img/{img_src}'
         slots = request.POST['slots']
         address = request.POST['address']
         free_slots = slots
         unique = len(Parking.objects.all()) + 1
         category = request.POST['category']
         creator = request.user.username
-        p = Parking(unique, title, category, img_src, slots, free_slots, creator, address)
+        p = Parking(unique, title, category, img_srcn, slots, free_slots, creator, address)
         p.save()
         p_check = Parking.objects.get(pk=unique)
         if p_check:
@@ -261,55 +263,44 @@ def park(request):
         unique = p_n + 1
         user = request.user
         parking = Parking.objects.get(pk=key)
-        check = len(Park.objects.filter(user=user))            
-        if check > 0:
-            parking = Parking.objects.get(pk=parking.id)
-            slots_n = parking.slots
-            free_slots_n = parking.free_slots
-            i = 0
-            slots = ''
-            while i < slots_n:
-                slots += 'x'
-                i +=1
-            free_slots = '' 
-            l=0 
-            while l < free_slots_n:
-                free_slots += 'x'
-                l +=1      
-            ocupied_slots_n = slots_n - free_slots_n
-            ocupied_slots = []
-            m = 0
-            while m < ocupied_slots_n:
-                z = free_slots_n + (m + 1)
-                ocupied_slots.append(z)
-                m +=1 
-            slugid = Park.objects.get(user=user) 
-            slug = slugid.parking.id
-            return render(request, "capstone/parking.html", {
-                "parking": parking,
-                "slots_n": slots_n,
-                "slots": slots,
-                "free_slots": free_slots,
-                "free_slots_n": free_slots_n,
-                "ocupied_slots_n": ocupied_slots_n,
-                "ocupied_slots": ocupied_slots,
-                "message": "You are only able to park one vehicle at a time. Please unpark your other vehicle before parking again.",
-                "whereParked": Park.objects.get(user=user),
-                "whereParkedID": slug
-            })  
-        if not check:            
-            p = Park(logid=unique,user=user, category=category, licensePlate=licensePlate, parking=parking)
-            p.save()
-            ph_n = len(Parkhistory.objects.all())
-            unique2 = ph_n + 1
-
-            now = datetime.now()
-            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-            ph = Parkhistory(logid=unique2, user=user, park=parking, date=dt_string)
-            ph.save()
-            parking.free_slots = parking.free_slots - 1
-            parking.save()
-            return redirect(f'/parking/{parking.id}')
+        # check = len(Park.objects.filter(user=user))            
+        # if check > 0:
+            # parking = Parking.objects.get(pk=parking.id)
+            # slots_n = parking.slots
+            # free_slots_n = parking.free_slots
+            # i = 0
+            # slots = ''
+            # while i < slots_n:
+            #     slots += 'x'
+            #     i +=1
+            # free_slots = '' 
+            # l=0 
+            # while l < free_slots_n:
+            #     free_slots += 'x'
+            #     l +=1      
+            # ocupied_slots_n = slots_n - free_slots_n
+            # ocupied_slots = []
+            # m = 0
+            # while m < ocupied_slots_n:
+            #     z = free_slots_n + (m + 1)
+            #     ocupied_slots.append(z)
+            #     m +=1 
+            # slugid = Park.objects.get(user=user) 
+            # slug = slugid.parking.id
+            # return redirect(f'/parking/{parking.id}')      
+        
+        # if not check:            
+        p = Park(logid=unique,user=user, category=category, licensePlate=licensePlate, parking=parking)
+        p.save()
+        ph_n = len(Parkhistory.objects.all())
+        unique2 = ph_n + 1
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        ph = Parkhistory(logid=unique2, user=user, park=parking, date=dt_string)
+        ph.save()
+        parking.free_slots = parking.free_slots - 1
+        parking.save()
+        return redirect(f'/parking/{parking.id}#slots')      
 
 def unpark(request):
     if request.method == 'POST':
@@ -319,7 +310,7 @@ def unpark(request):
         park.delete()
         parking.free_slots = parking.free_slots + 1
         parking.save()
-        return redirect(f'/parking/{parking.id}')
+        return redirect(f'/parking/{parking.id}#slots')
 
 
 def atualPark(request):

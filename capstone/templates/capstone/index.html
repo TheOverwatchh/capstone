@@ -20,10 +20,12 @@
           <a href="{% url 'createParking' %}" class="ss">Create parking</a>
         </li>
         {% endif %}
+        {% if user.is_authenticated %}
         <li class="normal">|</li>
         <li class="normal">
             <a href="{% url 'allParkings' %}" class="ss">All Parkings <i class="fas fa-car"></i> </a>
           </li>
+        {% endif %}  
           {% if user.is_authenticated %}
           <li id="li_profile">
             <a href="{% url 'profile' %}">{{user.username}}<i class="fas fa-user"></i> </a>

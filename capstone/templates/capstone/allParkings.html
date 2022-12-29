@@ -48,7 +48,7 @@
                 <option style="display: none;">Filter</option>
                 <option value="car">Car</option>
                 <option value="motorcycle">Motorcycle</option>
-                <option value="both">Car and motorcycle</option>
+                <option value="both">All</option>
               </optgroup>
             </select>
             <input class="btn btn-secondary form-control" type="submit" value="Filter">
@@ -62,7 +62,7 @@
           <li class="parking">
             <div class="row">
               <div class="col-4 ">
-                <img class="parking-img" src="{{ parking.img_src }}.jpg">
+                <img class="parking-img" src="{{ parking.img_src }}">
               </div>
               <div class="col-8">
                 {% if user.username == parking.creator %}
