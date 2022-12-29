@@ -21,70 +21,8 @@
 ├── README.md
 ├── capstone
 │   ├── __init__.py
-│   ├── __pycache__
-│   │   ├── __init__.cpython-38.pyc
-│   │   ├── admin.cpython-38.pyc
-│   │   ├── models.cpython-38.pyc
-│   │   ├── urls.cpython-38.pyc
-│   │   └── views.cpython-38.pyc
 │   ├── admin.py
 │   ├── apps.py
-│   ├── migrations
-│   │   ├── 0001_initial.py
-│   │   ├── 0002_slot.py
-│   │   ├── 0003_auto_20221217_1751.py
-│   │   ├── 0004_delete_slot.py
-│   │   ├── 0005_auto_20221219_2247.py
-│   │   ├── 0006_user_times_logged.py
-│   │   ├── 0007_auto_20221220_0314.py
-│   │   ├── 0008_auto_20221220_1548.py
-│   │   ├── 0009_auto_20221220_1559.py
-│   │   ├── 0010_auto_20221220_1601.py
-│   │   ├── 0011_parking_creator.py
-│   │   ├── 0012_loghistory.py
-│   │   ├── 0013_auto_20221220_1933.py
-│   │   ├── 0014_auto_20221220_1944.py
-│   │   ├── 0015_park.py
-│   │   ├── 0016_remove_park_date.py
-│   │   ├── 0017_auto_20221223_1604.py
-│   │   ├── 0018_auto_20221223_1613.py
-│   │   ├── 0019_auto_20221224_1208.py
-│   │   ├── 0020_auto_20221224_1255.py
-│   │   ├── 0021_parking_address.py
-│   │   ├── 0022_auto_20221229_0002.py
-│   │   ├── 0023_auto_20221229_0101.py
-│   │   ├── __init__.py
-│   │   └── __pycache__
-│   │       ├── 0001_initial.cpython-38.pyc
-│   │       ├── 0002_slot.cpython-38.pyc
-│   │       ├── 0003_auto_20221217_1751.cpython-38.pyc
-│   │       ├── 0004_delete_slot.cpython-38.pyc
-│   │       ├── 0005_auto_20221219_2247.cpython-38.pyc
-│   │       ├── 0006_user_times_logged.cpython-38.pyc
-│   │       ├── 0007_auto_20221220_0314.cpython-38.pyc
-│   │       ├── 0008_auto_20221220_1548.cpython-38.pyc
-│   │       ├── 0009_auto_20221220_1559.cpython-38.pyc
-│   │       ├── 0010_auto_20221220_1601.cpython-38.pyc
-│   │       ├── 0011_parking_creator.cpython-38.pyc
-│   │       ├── 0012_loghistory.cpython-38.pyc
-│   │       ├── 0013_auto_20221220_1911.cpython-38.pyc
-│   │       ├── 0013_auto_20221220_1933.cpython-38.pyc
-│   │       ├── 0014_auto_20221220_1911.cpython-38.pyc
-│   │       ├── 0014_auto_20221220_1944.cpython-38.pyc
-│   │       ├── 0015_park.cpython-38.pyc
-│   │       ├── 0016_auto_20221221_1837.cpython-38.pyc
-│   │       ├── 0016_remove_park_date.cpython-38.pyc
-│   │       ├── 0017_auto_20221221_1859.cpython-38.pyc
-│   │       ├── 0017_auto_20221223_1604.cpython-38.pyc
-│   │       ├── 0018_auto_20221223_1613.cpython-38.pyc
-│   │       ├── 0018_park_user.cpython-38.pyc
-│   │       ├── 0019_auto_20221224_1208.cpython-38.pyc
-│   │       ├── 0019_delete_park.cpython-38.pyc
-│   │       ├── 0020_auto_20221224_1255.cpython-38.pyc
-│   │       ├── 0021_parking_address.cpython-38.pyc
-│   │       ├── 0022_auto_20221229_0002.cpython-38.pyc
-│   │       ├── 0023_auto_20221229_0101.cpython-38.pyc
-│   │       └── __init__.cpython-38.pyc
 │   ├── models.py
 │   ├── static
 │   │   └── capstone
@@ -121,21 +59,11 @@
 ├── db.sqlite3
 ├── finalproject
 │   ├── __init__.py
-│   ├── __pycache__
-│   │   ├── __init__.cpython-38.pyc
-│   │   ├── settings.cpython-38.pyc
-│   │   ├── urls.cpython-38.pyc
-│   │   └── wsgi.cpython-38.pyc
 │   ├── asgi.py
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
 ├── manage.py
-└── static
-    └── capstone
-        └── img
-            ├── parking4.jpg
-            └── parking5.jpg
 
 ```
 ### How to run the aplication
