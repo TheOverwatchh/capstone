@@ -17,17 +17,17 @@
 
 ### what's contained in each file
 ```
-.
+finalproject
 ├── README.md
 ├── capstone
 │   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── static
+│   ├── admin.py -> the logs of each model in the admin panel
+│   ├── apps.py -> config of the capstone app
+│   ├── models.py -> creation of the models with their particularities
+│   ├── static 
 │   │   └── capstone
-│   │       ├── createParking.css
-│   │       ├── img
+│   │       ├── createParking.css -> CSS of create parking page
+│   │       ├── img -> images used during the development of the site
 │   │       │   ├── background-login.png
 │   │       │   ├── busy_city.jpg
 │   │       │   ├── main-img-form.png
@@ -37,25 +37,24 @@
 │   │       │   ├── parking4.jpg
 │   │       │   ├── parking5.jpg
 │   │       │   └── trafic-light.jpg
-│   │       ├── index.css
-│   │       ├── login.css
-│   │       ├── map.js
-│   │       ├── parking.css
-│   │       └── profile.css
+│   │       ├── index.css -> CSS of index page
+│   │       ├── login.css -> CSS of login/register page
+│   │       ├── map.js -> JS file that get the nedded data to init and manage the map
+│   │       ├── parking.css  -> CSS of parking page
+│   │       └── profile.css  -> CSS of profile page
 │   ├── templates
 │   │   └── capstone
-│   │       ├── allParkings.html
-│   │       ├── atual_park.html
-│   │       ├── createParking.html
-│   │       ├── index.html
-│   │       ├── layout.html
-│   │       ├── login.html
-│   │       ├── parking.html
-│   │       ├── profile.html
-│   │       └── register.html
+│   │       ├── allParkings.html -> html of all parkings page
+│   │       ├── createParking.html -> html of create parking page
+│   │       ├── index.html -> html of index page
+│   │       ├── layout.html-> html of layout page (all other pages extends this one)
+│   │       ├── login.html -> html of login page
+│   │       ├── parking.html -> html of parking page
+│   │       ├── profile.html -> html of profile page
+│   │       └── register.html -> html of register page
 │   ├── tests.py
-│   ├── urls.py
-│   └── views.py
+│   ├── urls.py -> urls of the app
+│   └── views.py -> python code that makes all funcionabilities work in harmony with the database
 ├── db.sqlite3
 ├── finalproject
 │   ├── __init__.py

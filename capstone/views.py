@@ -312,7 +312,6 @@ def unpark(request):
         parking.save()
         return redirect(f'/parking/{parking.id}#slots')
 
-def atualPark(request):
     p = Park.objects.filter(user=request.user)
     if len(p) > 0:
         return render(request, 'capstone/atual_park.html', {
