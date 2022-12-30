@@ -15,6 +15,5 @@ urlpatterns = [
     path('parking/<int:parking_id>', views.parking, name="parking"),
     path('park', views.park, name="park"),
     path('unpark', views.unpark, name="unpark"),
-    path('atualPark', views.atualPark, name="atualPark"),
     path('deleteParking/<int:parking_id>', views.deleteParking, name="deleteParking"),
 ]
