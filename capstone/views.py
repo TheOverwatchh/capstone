@@ -6,7 +6,6 @@ from django.db import IntegrityError
 from django.urls import reverse 
 from datetime import datetime
 from django.contrib.auth import authenticate, login as login_dj, logout as logout_dj
-from PIL import Image
 # Create your views here.
 def login(request):
     if request.method == 'GET':
@@ -18,21 +17,11 @@ def login(request):
         if user is not None:
             login_dj(request, user)
             u = User.objects.get(username=username)
-            # u.times_logged = u.times_logged + 1
             u.save() 
-            allParkings = Parking.objects.all().order_by('-id')
-
-            paginator = Paginator(allParkings, 3)
-            page_number = request.GET.get('page')
-            posts_of_the_page = paginator.get_page(page_number)
-
             now = datetime.now()
-            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-            
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")          
             l = Loghistory(logid=len(Loghistory.objects.all()) + 1, user=request.user, date=dt_string)
             l.save()
-
-
             return HttpResponseRedirect(reverse('allParkings'))
         else:
             return render(request, "capstone/login.html", {
@@ -65,24 +54,12 @@ def register(request):
                 }) 
         login_dj(request, user) 
         u = User.objects.get(username=username, email=email)
-        # u.times_logged = u.times_logged + 1
         u.save() 
-        allParkings = Parking.objects.all().order_by('-id')
-
-        paginator = Paginator(allParkings, 3)
-        page_number = request.GET.get('page')
-        posts_of_the_page = paginator.get_page(page_number)
-
         now = datetime.now()
-        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-            
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")          
         l = Loghistory(logid=len(Loghistory.objects.all()) + 1, user=request.user, date=dt_string)
         l.save()
-
-        return render(request, "capstone/allParkings.html", {
-        "allParkings": allParkings,
-        "parkings_of_the_page": posts_of_the_page,
-    })               
+        return HttpResponseRedirect(reverse('allParkings'))              
 
 def logout(request):
     logout_dj(request)
@@ -93,12 +70,9 @@ def index(request):
 
 def allParkings(request):
      allParkings = Parking.objects.all().order_by('-id')
-
      paginator = Paginator(allParkings, 3)
      page_number = request.GET.get('page')
      posts_of_the_page = paginator.get_page(page_number)
-
-
      return render(request, "capstone/allParkings.html", {
         "allParkings": allParkings,
         "parkings_of_the_page": posts_of_the_page,
@@ -122,34 +96,19 @@ def createParking(request):
         p_check = Parking.objects.get(pk=unique)
         if p_check:
             u = User.objects.get(username=request.user.username)
-            # u.parks_created = u.parks_created + 1
             u.save()
-            allParkings = Parking.objects.all().order_by('-id')
-            paginator = Paginator(allParkings, 3)
-            page_number = request.GET.get('page')
-            posts_of_the_page = paginator.get_page(page_number)
-
             now = datetime.now()
             dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
             p = Createparkhistory(logid=len(Createparkhistory.objects.all()) + 1, user=request.user, park=Parking.objects.get(pk=unique), date=dt_string)
             p.save()
-            return render(request, 'capstone/allParkings.html', {
-                "allParkings": allParkings,
-                "parkings_of_the_page": posts_of_the_page,
-            })
+            return HttpResponseRedirect(reverse('allParkings'))
+            
         return HttpResponseRedirect(reverse('allParkings'))
 
 def deleteParking(request, parking_id):
      m = Parking.objects.get(pk=parking_id)
      m.delete()
-     allParkings = Parking.objects.all().order_by('-id')
-
-     paginator = Paginator(allParkings, 3)
-     page_number = request.GET.get('page')
-     posts_of_the_page = paginator.get_page(page_number)
-
-
      return HttpResponseRedirect(reverse('allParkings'))
 
 def parking(request, parking_id):
@@ -202,7 +161,6 @@ def parking(request, parking_id):
 def filter(request):
     if request.method == 'POST':    
         category = request.POST['category']
-        print(category)
         if category == 'both':
             allParkings = Parking.objects.all().order_by('-id')
 
@@ -222,18 +180,8 @@ def filter(request):
         })
 
     else:
-        allParkings = Parking.objects.all().order_by('-id')
-
-        paginator = Paginator(allParkings, 3)
-        page_number = request.GET.get('page')
-        posts_of_the_page = paginator.get_page(page_number)
-
-
-        return render(request, "capstone/allParkings.html", {
-            "allParkings": allParkings,
-            "parkings_of_the_page": posts_of_the_page,        
-   
-        })
+     return HttpResponseRedirect(reverse('allParkings'))
+        
 
 def profile(request):
     lgh = Loghistory.objects.filter(user=request.user).order_by('-logid')
@@ -262,34 +210,7 @@ def park(request):
         p_n = len(Park.objects.all()) 
         unique = p_n + 1
         user = request.user
-        parking = Parking.objects.get(pk=key)
-        # check = len(Park.objects.filter(user=user))            
-        # if check > 0:
-            # parking = Parking.objects.get(pk=parking.id)
-            # slots_n = parking.slots
-            # free_slots_n = parking.free_slots
-            # i = 0
-            # slots = ''
-            # while i < slots_n:
-            #     slots += 'x'
-            #     i +=1
-            # free_slots = '' 
-            # l=0 
-            # while l < free_slots_n:
-            #     free_slots += 'x'
-            #     l +=1      
-            # ocupied_slots_n = slots_n - free_slots_n
-            # ocupied_slots = []
-            # m = 0
-            # while m < ocupied_slots_n:
-            #     z = free_slots_n + (m + 1)
-            #     ocupied_slots.append(z)
-            #     m +=1 
-            # slugid = Park.objects.get(user=user) 
-            # slug = slugid.parking.id
-            # return redirect(f'/parking/{parking.id}')      
-        
-        # if not check:            
+        parking = Parking.objects.get(pk=key)          
         p = Park(logid=unique,user=user, category=category, licensePlate=licensePlate, parking=parking)
         p.save()
         ph_n = len(Parkhistory.objects.all())

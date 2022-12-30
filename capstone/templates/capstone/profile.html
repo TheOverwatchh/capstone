@@ -40,8 +40,6 @@
       
         <h2>Parked <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ parksn }}</span>  times</h2><i class="fas fa-car"></i>
         
-        <!-- <h2>Created <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ cphn }}</span> Parkings</h2><i class="fas fa-car"></i> -->
-       
       </div>
       {% else %}
       <div id="park" class="col-md-3 col-8 p-3 p-md-0 hidden">
@@ -51,9 +49,6 @@
       <div id="park2" class="col-md-3 col-8 mt-2 mt-md-0 p-3 p-md-0 hidden">
       
         <h2>Parked <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ parksn }}</span>  times</h2><i class="fas fa-car"></i>
-        
-        <!-- <h2>Created <span style="color:steelblue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;">{{ cphn }}</span> Parkings</h2><i class="fas fa-car"></i> -->
-       
       </div>
       {%  endif%}
     </div>
@@ -70,38 +65,6 @@
       {% endfor %}
     </ul>
   </div>
-  <!-- {% if user.is_staff == True %}
-  <div id="hidden-created-parks" style="display:none;" class="border mt-5 mt-md-0 pt-5 pt-md-0">
-    <ul>
-      {% for x in cph %}
-      <li class="">{{x}}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div id="hidden-parks" style="display:none" class="border mt-5 mt-md-0 pt-5 pt-md-0">
-    <ul>
-    {% for x in parks %}
-    <li>{{ x }}</li>
-    {% endfor%}
-  </ul>
-  </div>
-  {% else %}
-  <div id="hidden-created-parks" style="display:none;" class="border mt-5 mt-md-0 pt-5 pt-md-0">
-    <ul>
-      {% for x in cph %}
-      <li class="">{{x}}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div id="hidden-parks" style="display:none" class="border mt-5 mt-md-0 pt-5 pt-md-0">
-    <ul>
-    {% for x in parks %}
-    <li>{{ x }}</li>
-    {% endfor%}
-  </ul>
-  </div>
-  {% endif %} -->
-
   <div id="hidden-created-parks" style="display:none;" class="border mt-5 mt-md-0 pt-5 pt-md-0">
     <ul>
       {% for x in cph %}
